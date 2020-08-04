@@ -5,6 +5,13 @@ class ListsService {
   async create(body) {
     return await dbContext.List.create(body)
   }
+  async getById(id) {
+    let data = await dbContext.List.find({ boardId: id })
+    if (!data) {
+      throw new BadRequest("")
+    }
+    return data
+  }
   async editList(id, body) {
     return await dbContext.List.findByIdAndUpdate(id, body, { new: true })
   }
