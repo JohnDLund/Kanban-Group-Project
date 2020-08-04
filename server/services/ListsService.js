@@ -2,16 +2,16 @@ import { dbContext } from "../db/DbContext";
 import { BadRequest } from "../utils/Errors";
 
 class ListsService {
-  async create(body){
+  async create(body) {
     return await dbContext.List.create(body)
   }
-  async editList(id, body){
-    return await dbContext.List.findByIdAndUpdate(id, body, {upsert: true})
+  async editList(id, body) {
+    return await dbContext.List.findByIdAndUpdate(id, body, { new: true })
   }
-  async deleteList(id){
+  async deleteList(id) {
     return await dbContext.List.findByIdAndDelete(id)
   }
-  async find(query={}) {
+  async find(query = {}) {
     let lists = await dbContext.List.find(query);
     return lists;
   }

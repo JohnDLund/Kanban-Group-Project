@@ -11,11 +11,11 @@ export class TasksController extends BaseController {
       .get("", this.getAll)
       // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
       .post("", this.create)
-      .post("/:id/comments", this.addComments)
+      .post("/:id/comments", this.addComment)
       .put("/:id", this.editTask)
       .put("/:id/comments/:commentId", this.editComment)
-      .delete("/:id", deleteTask)
-      .delete("/:id/comments/:commentId", deleteComment)
+      .delete("/:id", this.deleteTask)
+      .delete("/:id/comments/:commentId", this.deleteComment)
   }
 
   async getAll(req, res, next) {
@@ -34,6 +34,49 @@ export class TasksController extends BaseController {
       res.send(task);
     } catch (error) {
       next(error);
+    }
+  }
+  async editTask(req, res, next) {
+    try {
+      let task = await tasksService.editTask(req.params.id, req.body)
+      res.send({ data: task, message: "Edited" })
+    } catch (error) {
+      next(error)
+    }
+  }
+  async deleteTask(req, res, next) {
+    try {
+      await tasksService.deleteTask(req.params.id)
+      res.send("Deleted Task")
+    } catch (error) {
+      next(error)
+    }
+  }
+  async addComment(req, res, next) {
+    try {
+      let comment = await tasksService.addComment(req.params.id, req.body);
+      if (comment) {
+        return res.send(comment)
+      }
+    } catch (error) {
+      next(error)
+    }
+  }
+  async deleteComment(req, res, next) {
+    try {
+      let delComment = await tasksService.deleteComment(req.params.id, req.params.commentId);
+      if (delComment) {
+        return res.send("deleted")
+      }
+    } catch (error) {
+      next(error)
+    }
+  }
+  async editComment(req, res, next) {
+    try {
+      res.send({ data: await tasksService.editComment(req.params.id, req.params.commentId, req.body), message: "edited comment" })
+    } catch (error) {
+      next(error)
     }
   }
 }

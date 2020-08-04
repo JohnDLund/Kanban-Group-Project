@@ -35,7 +35,7 @@ export class ListsController extends BaseController {
   }
   async editList(req, res, next) {
     try {
-      let list = await listsService.editList(req.body, req.params.id)
+      let list = await listsService.editList(req.params.id, req.body)
       res.send({ data: list, message: "Edited" })
     } catch (error) {
       console.error(error);
