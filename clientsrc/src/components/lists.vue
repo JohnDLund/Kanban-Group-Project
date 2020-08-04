@@ -19,7 +19,9 @@ export default {
   data() {
     return {};
   },
-  mounted() {},
+  mounted() {
+    this.$store.dispatch("getTasks", this.$route.params.listId);
+  },
 
   computed: {
     tasks() {
