@@ -22,6 +22,13 @@ class TasksService {
     }
     return task;
   }
+  async getById(id) {
+    let data = await dbContext.Task.find({ listId: id })
+    if (!data) {
+      throw new BadRequest("")
+    }
+    return data
+  }
   async addComment(id, body) {
     return await dbContext.Task.findByIdAndUpdate(
       { _id: id },

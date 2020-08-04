@@ -22,6 +22,7 @@ class ListsService {
     }
     return value;
   }
+
 }
 
 export const listsService = new ListsService();
