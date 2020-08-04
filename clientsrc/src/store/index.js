@@ -84,11 +84,11 @@ export default new Vuex.Store({
       }
     },
 
-    async getLists({ commit }) {
+    async getLists({ commit }, boardId) {
       try {
-        let res = await api.get("lists/")
-        console.log("got the Lists!!!", res.data.data);
-        commit("setLists", res.data.data)
+        let res = await api.get("boards/" + boardId + "/lists")
+        console.log("got the Lists!!!", res.data);
+        commit("setLists", res.data)
       } catch (err) {
         console.error(err)
       }
