@@ -7,7 +7,7 @@ export class ListsController extends BaseController {
   constructor() {
     super("api/lists");
     this.router
-    .use(auth0provider.isAuthorized)
+      .use(auth0provider.isAuthorized)
       .get("", this.getAll)
       // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
       .post("", this.create)
@@ -17,8 +17,8 @@ export class ListsController extends BaseController {
 
   async getAll(req, res, next) {
     try {
-    let lists = await listsService.find()
-    res.send({data: lists, message: "got the lists"})
+      let lists = await listsService.find()
+      res.send({ data: lists, message: "got the lists" })
     } catch (error) {
       next(error);
     }
@@ -33,17 +33,17 @@ export class ListsController extends BaseController {
       next(error);
     }
   }
-  async editList(req, res, next){
+  async editList(req, res, next) {
     try {
-      let list = await listsService.edit(req.body, req.params.id)
-      res.send({data: list, message: "Edited"})
+      let list = await listsService.editList(req.body, req.params.id)
+      res.send({ data: list, message: "Edited" })
     } catch (error) {
       console.error(error);
     }
   }
-  async deleteList(req, res, next){
+  async deleteList(req, res, next) {
     try {
-      await listsService.delete(req.params.id)
+      await listsService.deleteList(req.params.id)
       res.send("Deleted")
     } catch (error) {
       console.error(error);

@@ -7,21 +7,21 @@ export class TasksController extends BaseController {
   constructor() {
     super("api/tasks");
     this.router
-    .use(auth0provider.isAuthorized)
+      .use(auth0provider.isAuthorized)
       .get("", this.getAll)
       // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
       .post("", this.create)
-      // .post("/:id/comments", this.addComments)
-      //.put("/:id", this.editTask)
-      //.put("/:id/comments/:commentId", this.editComment)
-      //.delete("/:id", deleteTask)
-      // .delete("/:id/comments/:commentId", deleteComment)
+      .post("/:id/comments", this.addComments)
+      .put("/:id", this.editTask)
+      .put("/:id/comments/:commentId", this.editComment)
+      .delete("/:id", deleteTask)
+      .delete("/:id/comments/:commentId", deleteComment)
   }
-  
+
   async getAll(req, res, next) {
     try {
-let task = await tasksService.find()
-res.send({data: task, message:"got tasks"})
+      let task = await tasksService.find()
+      res.send({ data: task, message: "got tasks" })
     } catch (error) {
       next(error);
     }
