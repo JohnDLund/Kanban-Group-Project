@@ -29,15 +29,15 @@ export default new Vuex.Store({
     setBoards(state, boards) {
       state.boards = boards
     },
-  setActiveBoard(state, board) {
-    state.activeBoard = board
-  },
-  setLists(state, lists) {
-    state.lists = lists
-  },
-  setTasks(state, tasks) {
-    state.tasks = tasks
-  }
+    setActiveBoard(state, board) {
+      state.activeBoard = board
+    },
+    setLists(state, lists) {
+      state.lists = lists
+    },
+    setTasks(state, tasks) {
+      state.tasks = tasks
+    }
   },
   actions: {
     //#region -- AUTH STUFF --
@@ -69,40 +69,40 @@ export default new Vuex.Store({
 
     addBoard({ commit, dispatch }, boardData) {
       api.post('boards', boardData)
-      .then(serverBoard => {
-        dispatch('getBoards')
-      })
+        .then(serverBoard => {
+          dispatch('getBoards')
+        })
     },
 
     async getBoard({ commit }, boardId) {
-      try{
+      try {
         let res = await api.get("boards/" + boardId)
         console.log("got the Boards!!!", res.data);
-      commit("setActiveBoard", res.data)
+        commit("setActiveBoard", res.data)
       } catch (err) {
         console.error(err)
       }
-      },
+    },
 
     async getLists({ commit }) {
-        try{
-          let res = await api.get("lists/")
-          console.log("got the Lists!!!", res.data.data);
+      try {
+        let res = await api.get("lists/")
+        console.log("got the Lists!!!", res.data.data);
         commit("setLists", res.data.data)
-        } catch (err) {
-          console.error(err)
-        }
-        },
+      } catch (err) {
+        console.error(err)
+      }
+    },
 
-    async getTasks({ commit }) {
-          try{
-            let res = await api.get("tasks/")
-            console.log("got the tasks!!!", res.data.data);
-          commit("setTasks", res.data.data)
-          } catch (err) {
-            console.error(err)
-          }
-          },
+    async getTasks({ commit }, listId) {
+      try {
+        let res = await api.get("lists/" + listId + "/tasks")
+        console.log("got the tasks!!!", res.data.data);
+        commit("setTasks", res.data.data)
+      } catch (err) {
+        console.error(err)
+      }
+    },
     //#endregion
 
 
