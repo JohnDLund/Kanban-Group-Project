@@ -19,12 +19,13 @@ export default {
   data() {
     return {};
   },
-  mounted() {
-    this.$store.dispatch("getTasks");
-  },
+  mounted() {},
+
   computed: {
     tasks() {
-      return this.$store.state.tasks;
+      return this.$store.state.tasks.data.filter(
+        (t) => this.listData.id == t.listId
+      );
     },
   },
   methods: {},

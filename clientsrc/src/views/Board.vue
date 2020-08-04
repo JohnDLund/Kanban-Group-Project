@@ -21,7 +21,8 @@ export default {
   props: ["boardData"],
   mounted() {
     this.$store.dispatch("getBoard", this.$route.params.boardId);
-    this.$store.dispatch("getLists");
+    this.$store.dispatch("getLists", this.$route.params.boardId);
+    this.$store.dispatch("getTasks");
   },
   computed: {
     board() {
@@ -29,7 +30,10 @@ export default {
       return this.$store.state.activeBoard;
     },
     lists() {
-      return this.$store.state.lists;
+      debugger;
+      return this.$store.state.lists.filter(
+        (l) => this.boardData.id == l.boardId
+      );
     },
   },
   methods: {
