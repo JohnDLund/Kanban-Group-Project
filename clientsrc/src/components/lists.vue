@@ -47,6 +47,19 @@
       :taskData="task"
       :key="task.id"
     ></tasks>
+    <div class="input-group my-4 d-flex justify-content-center">
+      <div class="input-group-prepend">
+        <span class="input-group-text">+</span>
+      </div>
+      <form @submit="createTask">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter New Task ..."
+          v-model="newTaskObject.title"
+        />
+      </form>
+    </div>
   </div>
 </template>
 
@@ -59,6 +72,7 @@ export default {
   data() {
     return {
       editedListObject: {},
+      newTaskObject: {},
     };
   },
   mounted() {
@@ -87,6 +101,13 @@ export default {
         creatorEmail: this.user.email,
       });
       $("#" + listData.id).modal("hide");
+    },
+    createTask() {
+      this.$store.dispatch("createTask", {
+        title: this.newTaskObject.title,
+        listId: this.listData.id,
+        creatorEmail: this.user.email,
+      });
     },
   },
 

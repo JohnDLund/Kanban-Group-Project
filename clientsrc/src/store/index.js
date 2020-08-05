@@ -127,7 +127,6 @@ export default new Vuex.Store({
     },
 
     async getTasks({ commit }, listData) {
-      debugger
       try {
         let res = await api.get("lists/" + listData + "/tasks")
         console.log("got the tasks", res.data);
@@ -135,6 +134,17 @@ export default new Vuex.Store({
           listId: listData,
           tasks: res.data
         })
+      } catch (err) {
+        console.error(err)
+      }
+    },
+
+    async createTask({ commit, dispatch }, taskData) {
+      try {
+        debugger
+        let res = await api.post("tasks/", taskData)
+        console.log("create new task", res.data);
+        dispatch("getTasks", taskData.listId)
       } catch (err) {
         console.error(err)
       }

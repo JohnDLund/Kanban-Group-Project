@@ -14,9 +14,9 @@
         <button type="submit" class="btn btn-primary mb-2">Submit</button>
       </form>
     </div>
-    <div class="row">
+    <div class="listScroll">
       <lists
-        class="col-2 listWrapper bg-dark text-white p-2 rounded border border-white"
+        class="col-3 listWrapper bg-dark text-white p-2 m-2 rounded border border-white"
         v-for="list in lists"
         :listData="list"
         :key="list.id"
