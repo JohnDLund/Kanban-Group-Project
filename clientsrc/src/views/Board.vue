@@ -2,6 +2,20 @@
   <div class="board container-fluid">
     <div class="row justify-content-center">
       <h1 class="col-12">{{board.title}}</h1>
+      <div class="row justify-content-center">
+        <div class="col-12">
+          <form class="form-inline">
+            <input
+              type="text"
+              class="form-control mb-2 mr-sm-2"
+              id="inlineFormInputName2"
+              placeholder="Enter New List ..."
+              v-model="newListObject.title"
+            />
+            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+          </form>
+        </div>
+      </div>
     </div>
     <div class="row">
       <lists
@@ -19,6 +33,9 @@ import lists from "../components/lists";
 export default {
   name: "board",
   props: ["boardData"],
+  data() {
+return {newListObject: {},
+  },
   mounted() {
     this.$store.dispatch("getBoard", this.$route.params.boardId);
     this.$store.dispatch("getLists", this.$route.params.boardId);
@@ -29,10 +46,7 @@ export default {
       return this.$store.state.activeBoard;
     },
     lists() {
-      debugger;
-      return this.$store.state.lists.filter(
-        (l) => this.boardData.id == l.boardId
-      );
+      return this.$store.state.lists;
     },
   },
   methods: {
