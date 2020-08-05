@@ -16,7 +16,7 @@
     </div>
     <div class="listScroll">
       <lists
-        class="col-3 listWrapper bg-dark text-white p-2 m-2 rounded border border-white"
+        class="col-12 col-md-3 listWrapper bg-dark text-white p-2 m-2 rounded border border-white"
         v-for="list in lists"
         :listData="list"
         :key="list.id"
