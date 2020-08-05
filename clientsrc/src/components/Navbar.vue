@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <router-link class="navbar-brand" :to="{ name: 'home' }">Kanban</router-link>
 
     <button
@@ -36,11 +36,11 @@
             aria-expanded="false"
           >Boards</a>
 
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <div class="dropdown-menu bg-secondary" aria-labelledby="navbarDropdownMenuLink">
             <a
               v-for="board in boards"
               :key="board.id"
-              class="dropdown-item"
+              class="dropdown-item bg-secondary text-white"
               href="#"
             >{{board.title}}</a>
           </div>

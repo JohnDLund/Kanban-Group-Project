@@ -94,11 +94,11 @@ export default new Vuex.Store({
       }
     },
 
-    async addList({ dispatch }, boardData) {
+    async addList({ dispatch }, listData) {
       try {
-        let res = await api.post("lists/", boardData)
+        let res = await api.post("lists/", listData)
         console.log("added a list", res.data);
-        dispatch("getLists", boardData.boardId)
+        dispatch("getLists", listData.boardId)
       } catch (err) {
         console.error(err)
       }
@@ -109,6 +109,17 @@ export default new Vuex.Store({
         let res = await api.delete("lists/" + listId.id)
         console.log("deleted a list", res.data);
         dispatch("getLists", listId.boardId)
+      } catch (err) {
+        console.error(err)
+      }
+    },
+
+    async editList({ dispatch }, listData) {
+      try {
+        console.log("lisData", listData)
+        let res = await api.put("lists/" + listData.id, listData.title)
+        console.log("edited the list", res.data);
+        dispatch("getLists", listData.boardId)
       } catch (err) {
         console.error(err)
       }

@@ -1,24 +1,22 @@
 <template>
-  <div class="board container-fluid">
+  <div class="board container-fluid bg-secondary">
+    <div class="row justify-content-center text-white">
+      <h1 class="col-12 p-4">{{board.title}}</h1>
+    </div>
     <div class="row justify-content-center">
-      <h1 class="col-12">{{board.title}}</h1>
-      <div class="row justify-content-center">
-        <div class="col-12">
-          <form class="form-inline" @submit="addNewList">
-            <input
-              type="text"
-              class="form-control mb-2"
-              placeholder="Enter New List ..."
-              v-model="newListObject.title"
-            />
-            <button type="submit" class="btn btn-primary mb-2">Submit</button>
-          </form>
-        </div>
-      </div>
+      <form class="form-inline" @submit="addNewList">
+        <input
+          type="text"
+          class="form-control mb-2"
+          placeholder="Create New List ..."
+          v-model="newListObject.title"
+        />
+        <button type="submit" class="btn btn-primary mb-2">Submit</button>
+      </form>
     </div>
     <div class="row">
       <lists
-        class="col-2 border border-primary listWrapper"
+        class="col-2 listWrapper bg-dark text-white p-2 rounded border border-white"
         v-for="list in lists"
         :listData="list"
         :key="list.id"
