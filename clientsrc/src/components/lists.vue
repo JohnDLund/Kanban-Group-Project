@@ -62,14 +62,12 @@ export default {
     };
   },
   mounted() {
-    this.$store.dispatch("getTasks", this.$route.params.listId);
+    this.$store.dispatch("getTasks", this.listData.id);
   },
 
   computed: {
     tasks() {
-      return this.$store.state.tasks.data.filter(
-        (t) => this.listData.id == t.listId
-      );
+      return this.$store.state.tasks[this.listData.id];
     },
     user() {
       return this.$store.state.user;

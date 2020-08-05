@@ -20,7 +20,7 @@ export default new Vuex.Store({
     boards: [],
     activeBoard: {},
     lists: [],
-    tasks: []
+    tasks: {}
   },
   mutations: {
     setUser(state, user) {
@@ -35,8 +35,9 @@ export default new Vuex.Store({
     setLists(state, lists) {
       state.lists = lists
     },
-    setTasks(state, tasks) {
-      state.tasks = tasks
+    setTasks(state, payload) {
+      Vue.set(state.tasks, payload.listId, payload.tasks)
+      // state.tasks[payload.listId] = payload.tasks
     }
   },
   actions: {
@@ -125,11 +126,15 @@ export default new Vuex.Store({
       }
     },
 
-    async getTasks({ commit }) {
+    async getTasks({ commit }, listData) {
+      debugger
       try {
-        let res = await api.get("tasks")
+        let res = await api.get("lists/" + listData + "/tasks")
         console.log("got the tasks", res.data);
-        commit("setTasks", res.data)
+        commit("setTasks", {
+          listId: listData,
+          tasks: res.data
+        })
       } catch (err) {
         console.error(err)
       }
