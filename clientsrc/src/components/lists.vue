@@ -1,11 +1,11 @@
 <template>
   <div>
     <div class="d-flex justify-content-between">
-      <button
-        class="btn btn-sm btn-warning mb-2"
+      <i
+        class="fa fa-pencil text-warning"
         data-toggle="modal"
         :data-target="'#editListModal' + listData.id"
-      >Edit</button>
+      ></i>
 
       <div
         class="modal fade text-dark"
@@ -38,7 +38,7 @@
         </div>
       </div>
 
-      <button class="btn btn-sm btn-danger mb-2" @click="removeList">X</button>
+      <i class="fa fa-trash-o text-danger" @click="removeList"></i>
     </div>
     <h4 class="lists p-2">{{listData.title}}</h4>
     <tasks
@@ -100,7 +100,7 @@ export default {
         boardId: this.listData.boardId,
         creatorEmail: this.user.email,
       });
-      $("#" + listData.id).modal("hide");
+      $("#editListModal" + this.listData.id).modal("hide");
     },
     createTask() {
       this.$store.dispatch("createTask", {
@@ -108,6 +108,7 @@ export default {
         listId: this.listData.id,
         creatorEmail: this.user.email,
       });
+      this.newTaskObject.title = "";
     },
   },
 

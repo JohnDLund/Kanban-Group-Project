@@ -141,9 +141,28 @@ export default new Vuex.Store({
 
     async createTask({ commit, dispatch }, taskData) {
       try {
-        debugger
         let res = await api.post("tasks/", taskData)
         console.log("create new task", res.data);
+        dispatch("getTasks", taskData.listId)
+      } catch (err) {
+        console.error(err)
+      }
+    },
+
+    async deleteTask({ dispatch }, taskData) {
+      try {
+        let res = await api.delete("tasks/" + taskData.id)
+        console.log("deleted a task", res.data);
+        dispatch("getTasks", taskData.listId)
+      } catch (err) {
+        console.error(err)
+      }
+    },
+
+    async editTask({ dispatch }, taskData) {
+      try {
+        let res = await api.put("tasks/" + taskData.id, taskData)
+        console.log("edited the task", res.data);
         dispatch("getTasks", taskData.listId)
       } catch (err) {
         console.error(err)
