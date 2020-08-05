@@ -41,17 +41,54 @@
         </div>
       </div>
       {{taskData.title}}
+      <div class="nav-item dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="navbarDropdownMenuLink"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        ></a>
+        <div class="dropdown-menu bg-secondary" aria-labelledby="navbarDropdownMenuLink">
+          <a
+            v-for="list in lists"
+            :key="list.id"
+            class="dropdown-item bg-secondary text-white"
+            href="#"
+            @click="changeList(list.id)"
+          >{{list.title}}</a>
+        </div>
+      </div>
       <i class="fa fa-trash-o text-danger" @click="deleteTask"></i>
     </div>
     <div v-if="commentsClicked">
-      <comments v-for="comment in comments" :commentData="comment" :key="comment.id"></comments>
+      <comment
+        v-for="comment in comments"
+        :commentData="comment"
+        :taskId="taskData.id"
+        :listId="taskData.listId"
+        :key="comment.id"
+      ></comment>
+      <div class="input-group my-4 d-flex justify-content-center">
+        <div class="input-group-prepend"></div>
+        <form @submit="createComment">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Enter New Comment ..."
+            v-model="newCommentObject.comment"
+          />
+        </form>
+      </div>
     </div>
   </div>
 </template>
 
 
 <script>
-import comments from "../components/comments";
+import comment from "../components/comment";
 export default {
   name: "tasks",
   props: ["taskData"],
@@ -59,6 +96,7 @@ export default {
     return {
       commentsClicked: false,
       editedTaskObject: {},
+      newCommentObject: {},
     };
   },
   computed: {
@@ -66,10 +104,31 @@ export default {
       return this.$store.state.user;
     },
     comments() {
-      return this.$store.state.tasks.comments;
+      return this.taskData.comments;
+    },
+    lists() {
+      return this.$store.state.lists;
     },
   },
   methods: {
+    changeList(listId) {
+      this.$store.dispatch("changeList", {
+        listId: listId,
+        oldId: this.taskData.listId,
+        taskId: this.taskData.id,
+      });
+    },
+
+    createComment() {
+      this.$store.dispatch("createComment", {
+        comment: this.newCommentObject.comment,
+        user: this.user.name,
+        taskId: this.taskData.id,
+        listId: this.taskData.listId,
+      });
+      this.newCommentObject.comment = "";
+    },
+
     deleteTask() {
       this.$store.dispatch("deleteTask", this.taskData);
     },
@@ -84,7 +143,7 @@ export default {
     },
   },
   components: {
-    comments,
+    comment,
   },
 };
 </script>

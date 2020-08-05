@@ -48,9 +48,7 @@
       :key="task.id"
     ></tasks>
     <div class="input-group my-4 d-flex justify-content-center">
-      <div class="input-group-prepend">
-        <span class="input-group-text">+</span>
-      </div>
+      <div class="input-group-prepend"></div>
       <form @submit="createTask">
         <input
           type="text"

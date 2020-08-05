@@ -128,6 +128,7 @@ export default new Vuex.Store({
 
     async getTasks({ commit }, listData) {
       try {
+
         let res = await api.get("lists/" + listData + "/tasks")
         console.log("got the tasks", res.data);
         commit("setTasks", {
@@ -142,7 +143,7 @@ export default new Vuex.Store({
     async createTask({ commit, dispatch }, taskData) {
       try {
         let res = await api.post("tasks/", taskData)
-        console.log("create new task", res.data);
+        console.log("created new task", res.data);
         dispatch("getTasks", taskData.listId)
       } catch (err) {
         console.error(err)
@@ -168,6 +169,37 @@ export default new Vuex.Store({
         console.error(err)
       }
     },
+    async createComment({ commit, dispatch }, payload) {
+      try {
+        let res = await api.post("tasks/" + payload.taskId + "/comments", payload)
+        console.log("created new comment", res.data);
+        dispatch("getTasks", payload.listId)
+      } catch (err) {
+        console.error(err)
+      }
+    },
+    async deleteComment({ dispatch }, payload) {
+      try {
+        let res = await api.delete("tasks/" + payload.taskId + "/comments/" + payload.id)
+        console.log("deleted a comment", res.data);
+        dispatch("getTasks", payload.listId)
+      } catch (err) {
+        console.error(err)
+      }
+    },
+
+    async changeList({ dispatch }, payload) {
+      try {
+        let res = await api.put("tasks/" + payload.taskId, payload)
+        console.log("moved task", res.data);
+        dispatch("getTasks", payload.listId)
+        dispatch("getTasks", payload.oldId)
+      } catch (err) {
+        console.error(err)
+      }
+    }
+
+
     //#endregion
 
 
