@@ -77,7 +77,7 @@ export default new Vuex.Store({
     async getBoard({ commit }, boardId) {
       try {
         let res = await api.get("boards/" + boardId)
-        console.log("got the Boards!!!", res.data);
+        console.log("got the boards", res.data);
         commit("setActiveBoard", res.data)
       } catch (err) {
         console.error(err)
@@ -87,8 +87,28 @@ export default new Vuex.Store({
     async getLists({ commit }, boardId) {
       try {
         let res = await api.get("boards/" + boardId + "/lists")
-        console.log("got the Lists!!!", res.data);
+        console.log("got the lists", res.data);
         commit("setLists", res.data)
+      } catch (err) {
+        console.error(err)
+      }
+    },
+
+    async addList({ dispatch }, boardData) {
+      try {
+        let res = await api.post("lists/", boardData)
+        console.log("added a list", res.data);
+        dispatch("getLists", boardData.boardId)
+      } catch (err) {
+        console.error(err)
+      }
+    },
+
+    async deleteList({ dispatch }, listId) {
+      try {
+        let res = await api.delete("lists/" + listId.id)
+        console.log("deleted a list", res.data);
+        dispatch("getLists", listId.boardId)
       } catch (err) {
         console.error(err)
       }
@@ -97,7 +117,7 @@ export default new Vuex.Store({
     async getTasks({ commit }) {
       try {
         let res = await api.get("tasks")
-        console.log("got the tasks!!!", res.data);
+        console.log("got the tasks", res.data);
         commit("setTasks", res.data)
       } catch (err) {
         console.error(err)

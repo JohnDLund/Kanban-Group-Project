@@ -4,11 +4,10 @@
       <h1 class="col-12">{{board.title}}</h1>
       <div class="row justify-content-center">
         <div class="col-12">
-          <form class="form-inline">
+          <form class="form-inline" @submit="addNewList">
             <input
               type="text"
-              class="form-control mb-2 mr-sm-2"
-              id="inlineFormInputName2"
+              class="form-control mb-2"
               placeholder="Enter New List ..."
               v-model="newListObject.title"
             />
@@ -34,7 +33,9 @@ export default {
   name: "board",
   props: ["boardData"],
   data() {
-return {newListObject: {},
+    return {
+      newListObject: {},
+    };
   },
   mounted() {
     this.$store.dispatch("getBoard", this.$route.params.boardId);
@@ -48,10 +49,20 @@ return {newListObject: {},
     lists() {
       return this.$store.state.lists;
     },
+    user() {
+      return this.$store.state.user;
+    },
   },
   methods: {
     getInfo() {
       console.log(this.$store.state.activeBoard);
+    },
+    addNewList() {
+      this.$store.dispatch("addList", {
+        title: this.newListObject.title,
+        boardId: this.board.id,
+        creatorEmail: this.user.email,
+      });
     },
   },
   components: {

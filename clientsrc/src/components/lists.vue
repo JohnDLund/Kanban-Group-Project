@@ -1,5 +1,6 @@
 <template>
   <div>
+    <button class="btn btn-sm btn-danger m-2" @click="removeList">X</button>
     <h4 class="lists">{{listData.title}}</h4>
     <tasks
       class="col-2 border border-primary"
@@ -24,13 +25,17 @@ export default {
   },
 
   computed: {
-    tasks() {
-      return this.$store.state.tasks.data.filter(
-        (t) => this.listData.id == t.listId
-      );
+    // tasks() {
+    //   return this.$store.state.tasks.data.filter(
+    //     (t) => this.listData.id == t.listId
+    //   );
+    // },
+  },
+  methods: {
+    removeList() {
+      this.$store.dispatch("deleteList", this.listData);
     },
   },
-  methods: {},
   components: {
     tasks,
   },
