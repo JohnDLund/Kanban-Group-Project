@@ -4,12 +4,12 @@
       <button
         class="btn btn-sm btn-warning mb-2"
         data-toggle="modal"
-        data-target="#editListModal"
+        :data-target="'#editListModal' + listData.id"
       >Edit</button>
 
       <div
         class="modal fade text-dark"
-        id="editListModal"
+        :id="'editListModal' + listData.id"
         tabindex="-1"
         role="dialog"
         aria-hidden="true"
@@ -66,24 +66,29 @@ export default {
   },
 
   computed: {
-    // tasks() {
-    //   return this.$store.state.tasks.data.filter(
-    //     (t) => this.listData.id == t.listId
-    //   );
-    // },
+    tasks() {
+      return this.$store.state.tasks.data.filter(
+        (t) => this.listData.id == t.listId
+      );
+    },
+    user() {
+      return this.$store.state.user;
+    },
   },
 
   methods: {
     removeList() {
       this.$store.dispatch("deleteList", this.listData);
     },
+
     editList() {
       this.$store.dispatch("editList", {
         id: this.listData.id,
         title: this.editedListObject.title,
         boardId: this.listData.boardId,
+        creatorEmail: this.user.email,
       });
-      $("#editListModal").modal("hide");
+      $("#" + listData.id).modal("hide");
     },
   },
 

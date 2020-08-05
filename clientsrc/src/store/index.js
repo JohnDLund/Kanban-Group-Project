@@ -117,7 +117,7 @@ export default new Vuex.Store({
     async editList({ dispatch }, listData) {
       try {
         console.log("lisData", listData)
-        let res = await api.put("lists/" + listData.id, listData.title)
+        let res = await api.put("lists/" + listData.id, listData)
         console.log("edited the list", res.data);
         dispatch("getLists", listData.boardId)
       } catch (err) {
