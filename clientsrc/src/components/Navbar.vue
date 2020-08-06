@@ -74,8 +74,8 @@ export default {
     async logout() {
       await this.$auth.logout({ returnTo: window.location.origin });
     },
-    toBoard(id) {
-      this.$router.push({ name: "board", params: { boardId: id } });
+    async toBoard(id) {
+      await this.$router.push({ name: "board", params: { boardId: id } });
     },
   },
 
