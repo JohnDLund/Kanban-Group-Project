@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>This is your home page.</h1>
+    <h1>Thank you for using John & Codys Kanban Board</h1>
   </div>
 </template>
 

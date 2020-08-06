@@ -25,7 +25,7 @@
         >
           <router-link class="nav-link" :to="{ name: 'boards' }">My-Dashboard</router-link>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" v-if="$auth.isAuthenticated">
           <a
             class="nav-link dropdown-toggle"
             href="#"
@@ -68,6 +68,7 @@ export default {
       await this.$auth.loginWithPopup();
       this.$store.dispatch("setBearer", this.$auth.bearer);
       this.$store.dispatch("getProfile");
+      this.$store.dispatch("getBoards");
       console.log("this.$auth.user: ");
       console.log(this.$auth.user);
     },

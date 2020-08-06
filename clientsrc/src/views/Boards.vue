@@ -16,7 +16,7 @@
           placeholder="description"
           v-model="newBoard.description"
         />
-        <button class="btn btn-outline-success" type="submit">Create Board</button>
+        <button class="btn btn-outline-success mt-2" type="submit">Create Board</button>
       </form>
     </div>
 
