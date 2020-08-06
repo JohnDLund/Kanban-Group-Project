@@ -75,7 +75,6 @@ export default {
       await this.$auth.logout({ returnTo: window.location.origin });
     },
     toBoard(id) {
-      debugger;
       this.$router.push({ name: "board", params: { boardId: id } });
     },
   },
