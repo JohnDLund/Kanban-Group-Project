@@ -41,6 +41,7 @@
         @click="commentsClicked = !commentsClicked"
         class="text-capitalize"
         data-toggle="tooltip"
+        data-placement="top"
         title="Click to show/hide Comments"
       >{{taskData.title}}</h5>
       <i class="fa fa-trash-o text-danger" @click="deleteTask"></i>
@@ -72,8 +73,8 @@
 <script>
 import comment from "../components/comment";
 export default {
-  toggle() {
-    $(document).ready(function () {
+  mounted() {
+    $(function () {
       $('[data-toggle="tooltip"]').tooltip();
     });
   },
