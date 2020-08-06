@@ -104,6 +104,26 @@ export default new Vuex.Store({
         console.error(err)
       }
     },
+    async deleteBoard({ dispatch }, boardId) {
+      try {
+        let res = await api.delete("boards/" + boardId)
+        console.log("deleted a board", res.data);
+        dispatch("getBoards", boardId)
+      } catch (err) {
+        console.error(err)
+      }
+    },
+
+    async editBoard({ dispatch }, boardData) {
+      try {
+        console.log("boardData", boardData)
+        let res = await api.put("boards/" + boardData.id, boardData)
+        console.log("edited the board", res.data);
+        dispatch("getBoards", boardData.boardId)
+      } catch (err) {
+        console.error(err)
+      }
+    },
 
     async getLists({ commit }, boardId) {
       try {
@@ -137,7 +157,7 @@ export default new Vuex.Store({
 
     async editList({ dispatch }, listData) {
       try {
-        console.log("lisData", listData)
+        console.log("listData", listData)
         let res = await api.put("lists/" + listData.id, listData)
         console.log("edited the list", res.data);
         dispatch("getLists", listData.boardId)
