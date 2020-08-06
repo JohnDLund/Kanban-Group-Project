@@ -54,7 +54,7 @@
       <form @submit="createTask">
         <input
           type="text"
-          class="form-control"
+          class="form-control text-capitalize"
           placeholder="Enter New Task ..."
           v-model="newTaskObject.title"
         />

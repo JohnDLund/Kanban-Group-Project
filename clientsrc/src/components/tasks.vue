@@ -37,7 +37,7 @@
           </div>
         </div>
       </div>
-      <h5 @click="commentsClicked = !commentsClicked">{{taskData.title}}</h5>
+      <h5 @click="commentsClicked = !commentsClicked" class="text-capitalize">{{taskData.title}}</h5>
       <i class="fa fa-trash-o text-danger" @click="deleteTask"></i>
     </div>
     <div v-if="commentsClicked">
