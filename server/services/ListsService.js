@@ -16,7 +16,7 @@ class ListsService {
     return await dbContext.List.findByIdAndUpdate(id, body, { new: true })
   }
   async deleteList(id) {
-    return await dbContext.List.findByIdAndDelete(id)
+    return await dbContext.List.findOneAndRemove({ _id: id })
   }
   async find(query = {}) {
     let lists = await dbContext.List.find(query);
