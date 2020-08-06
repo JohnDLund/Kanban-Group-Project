@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <navbar />
-    <router-view />
+    <router-view :key="$route.fullPath" />
   </div>
 </template>
 
@@ -20,8 +20,8 @@ export default {
     }
   },
   components: {
-    Navbar
-  }
+    Navbar,
+  },
 };
 </script>
 

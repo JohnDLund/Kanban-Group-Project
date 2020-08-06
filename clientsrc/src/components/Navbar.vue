@@ -37,13 +37,13 @@
           >Boards</a>
 
           <div class="dropdown-menu bg-secondary" aria-labelledby="navbarDropdownMenuLink">
-            <a
+            <router-link
               v-for="board in boards"
               :key="board.id"
               class="dropdown-item bg-secondary text-white"
               href="#"
-              @click="toBoard(board.id)"
-            >{{board.title}}</a>
+              :to="{ name: 'board', params: { boardId: board.id } }"
+            >{{board.title}}</router-link>
           </div>
         </li>
       </ul>
@@ -73,9 +73,6 @@ export default {
     },
     async logout() {
       await this.$auth.logout({ returnTo: window.location.origin });
-    },
-    async toBoard(id) {
-      await this.$router.push({ name: "board", params: { boardId: id } });
     },
   },
 
