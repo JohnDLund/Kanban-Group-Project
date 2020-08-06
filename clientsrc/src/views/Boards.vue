@@ -6,8 +6,10 @@
       <input type="text" placeholder="description" v-model="newBoard.description" />
       <button type="submit">Create Board</button>
     </form>
-    <div v-for="board in boards" :boardData="board" :key="board.id">
-      <router-link :to="{name: 'board', params: {boardId: board.id}}">{{board.title}}</router-link>
+    <div class="col-12" v-for="board in boards" :boardData="board" :key="board.id">
+      <router-link :to="{name: 'board', params: {boardId: board.id}}">
+        <div class="bg-dark text-primary p-2 m-2 rounded border border-white">{{board.title}}</div>
+      </router-link>
     </div>
   </div>
 </template>
