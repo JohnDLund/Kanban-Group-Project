@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @dragstart="moveTask()">
     <div
       class="tasks d-flex justify-content-between p-2"
       @click="commentsClicked = !commentsClicked"
@@ -41,26 +41,6 @@
         </div>
       </div>
       {{taskData.title}}
-      <div class="nav-item dropdown">
-        <a
-          class="nav-link dropdown-toggle"
-          href="#"
-          id="navbarDropdownMenuLink"
-          role="button"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        ></a>
-        <div class="dropdown-menu bg-secondary" aria-labelledby="navbarDropdownMenuLink">
-          <a
-            v-for="list in lists"
-            :key="list.id"
-            class="dropdown-item bg-secondary text-white"
-            href="#"
-            @click="changeList(list.id)"
-          >{{list.title}}</a>
-        </div>
-      </div>
       <i class="fa fa-trash-o text-danger" @click="deleteTask"></i>
     </div>
     <div v-if="commentsClicked">
@@ -91,7 +71,7 @@
 import comment from "../components/comment";
 export default {
   name: "tasks",
-  props: ["taskData"],
+  props: ["taskData", "listId"],
   data() {
     return {
       commentsClicked: false,
@@ -111,13 +91,17 @@ export default {
     },
   },
   methods: {
-    changeList(listId) {
-      this.$store.dispatch("changeList", {
-        listId: listId,
-        oldId: this.taskData.listId,
-        taskId: this.taskData.id,
-      });
+    moveTask() {
+      event.dataTransfer.setData("data", JSON.stringify(this.taskData));
+      event.dataTransfer.setData("list", this.listId);
     },
+    // changeList(listId) {
+    //   this.$store.dispatch("changeList", {
+    //     listId: listId,
+    //     oldId: this.taskData.listId,
+    //     taskId: this.taskData.id,
+    //   });
+    // },
 
     createComment() {
       this.$store.dispatch("createComment", {

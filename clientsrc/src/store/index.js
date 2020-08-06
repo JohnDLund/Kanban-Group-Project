@@ -38,6 +38,14 @@ export default new Vuex.Store({
     setTasks(state, payload) {
       Vue.set(state.tasks, payload.listId, payload.tasks)
       // state.tasks[payload.listId] = payload.tasks
+    },
+    removeFromList(state, moveData) {
+      let list = state.lists.find(l => l.id == moveData.oldListId)
+      list.tasks = list.tasks.filter(t => t.id != moveData.taskToMove.id)
+    },
+    addToList(state, moveData) {
+      let list = state.lists.find(l => l.id == moveData.newListId)
+      list.tasks.push(moveData.taskToMove)
     }
   },
   actions: {
@@ -48,6 +56,18 @@ export default new Vuex.Store({
     resetBearer() {
       api.defaults.headers.authorization = "";
     },
+
+    async moveTask({ commit, dispatch }, moveData) {
+      try {
+        moveData.taskToMove.listId = moveData.newListId
+        let res = await api.put("tasks/" + moveData.taskToMove.id, moveData.taskToMove)
+        dispatch("getTasks", moveData.oldListId)
+        dispatch("getTasks", moveData.newListId)
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
     async getProfile({ commit }) {
       try {
         let res = await api.get("/profile")
@@ -188,25 +208,24 @@ export default new Vuex.Store({
       }
     },
 
-    async changeList({ dispatch }, payload) {
-      try {
-        let res = await api.put("tasks/" + payload.taskId, payload)
-        console.log("moved task", res.data);
-        dispatch("getTasks", payload.listId)
-        dispatch("getTasks", payload.oldId)
-      } catch (err) {
-        console.error(err)
-      }
-    }
-
-
-    //#endregion
-
-
-    //#region -- LISTS --
-
-
-
-    //#endregion
+    // async changeList({ dispatch }, payload) {
+    //   try {
+    //     let res = await api.put("tasks/" + payload.taskId, payload)
+    //     console.log("moved task", res.data);
+    //     dispatch("getTasks", payload.listId)
+    //     dispatch("getTasks", payload.oldId)
+    //   } catch (err) {
+    //     console.error(err)
+    //   }
   }
+
+
+  //#endregion
+
+
+  //#region -- LISTS --
+
+
+
+  //#endregion
 })

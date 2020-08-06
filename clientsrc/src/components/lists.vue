@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div dropzone="list" @dragover.prevent @drop.prevent="moveTask()">
     <div class="d-flex justify-content-between">
       <i
         class="fa fa-pencil text-warning"
@@ -45,7 +45,9 @@
       class="rounded border border-primary bg-primary m-2"
       v-for="task in tasks"
       :taskData="task"
+      :listId="listData.id"
       :key="task.id"
+      draggable="true"
     ></tasks>
     <div class="input-group my-4 d-flex justify-content-center">
       <div class="input-group-prepend"></div>
@@ -87,6 +89,16 @@ export default {
   },
 
   methods: {
+    moveTask() {
+      let task = JSON.parse(event.dataTransfer.getData("data"));
+      let moveData = {
+        oldListId: event.dataTransfer.getData("list"),
+        taskToMove: task,
+        newListId: this.listData.id,
+      };
+      console.log(moveData);
+      this.$store.dispatch("moveTask", moveData);
+    },
     removeList() {
       this.$store.dispatch("deleteList", this.listData);
     },

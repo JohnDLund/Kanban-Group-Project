@@ -42,6 +42,7 @@
               :key="board.id"
               class="dropdown-item bg-secondary text-white"
               href="#"
+              @click="toBoard(board.id)"
             >{{board.title}}</a>
           </div>
         </li>
@@ -72,6 +73,10 @@ export default {
     },
     async logout() {
       await this.$auth.logout({ returnTo: window.location.origin });
+    },
+    toBoard(id) {
+      debugger;
+      this.$router.push({ name: "board", params: { boardId: id } });
     },
   },
 
