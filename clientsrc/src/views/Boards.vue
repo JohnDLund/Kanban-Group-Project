@@ -1,23 +1,40 @@
 <template>
   <div class="boards">
-    WELCOME TO THE BOARDS!!!
-    <form @submit.prevent="addBoard">
-      <input type="text" placeholder="title" v-model="newBoard.title" required />
-      <input type="text" placeholder="description" v-model="newBoard.description" />
-      <button type="submit">Create Board</button>
-    </form>
+    <h2>WELCOME TO THE BOARDS!!!</h2>
+    <div class="row justify-content-center">
+      <form class @submit.prevent="addBoard">
+        <input
+          class="form-control text-center text-capitalize"
+          type="text"
+          placeholder="title"
+          v-model="newBoard.title"
+          required
+        />
+        <input
+          class="form-control text-center text-capitalize"
+          type="text"
+          placeholder="description"
+          v-model="newBoard.description"
+        />
+        <button class="btn btn-outline-success" type="submit">Create Board</button>
+      </form>
+    </div>
+
     <div class="row">
       <div class="col-3" v-for="board in boards" :boardData="board" :key="board.id">
         <div
           class="bg-dark text-primary p-2 m-2 rounded border border-white d-flex justify-content-between"
         >
           <i
-            class="fa fa-pencil text-warning"
+            class="fa fa-2x fa-pencil text-warning"
             data-toggle="modal"
             :data-target="'#editBoardModal' + board.id"
           ></i>
-          <router-link :to="{name: 'board', params: {boardId: board.id}}">{{board.title}}</router-link>
-          <i class="fa fa-trash-o text-danger" @click="removeBoard(board.id)"></i>
+          <router-link :to="{name: 'board', params: {boardId: board.id}}">
+            <h3 class="text-capitalize">{{board.title}}:</h3>
+            <h3 class="text-capitalize">{{board.description}}</h3>
+          </router-link>
+          <i class="fa fa-2x fa-trash-o text-danger" @click="removeBoard(board.id)"></i>
         </div>
         <div
           class="modal fade text-dark"
@@ -38,7 +55,7 @@
                 <form class="form" @submit="editBoard(board.id)">
                   <input
                     type="text"
-                    class="form-control mb-2"
+                    class="form-control mb-2 text-capitalize"
                     placeholder="Edit list ..."
                     v-model="editedBoardObject.title"
                   />

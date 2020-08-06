@@ -40,7 +40,7 @@
 
       <i class="fa fa-trash-o text-danger" @click="removeList"></i>
     </div>
-    <h4 class="lists p-2">{{listData.title}}</h4>
+    <h4 class="lists p-2 text-capitalize">{{listData.title}}</h4>
     <tasks
       class="rounded border border-primary bg-primary m-2"
       v-for="task in tasks"

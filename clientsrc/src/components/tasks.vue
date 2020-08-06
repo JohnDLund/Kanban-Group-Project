@@ -1,9 +1,6 @@
 <template>
   <div @dragstart="moveTask()">
-    <div
-      class="tasks d-flex justify-content-between p-2"
-      @click="commentsClicked = !commentsClicked"
-    >
+    <div class="tasks d-flex justify-content-between p-2">
       <i
         class="fa fa-pencil text-warning"
         data-toggle="modal"
@@ -40,7 +37,7 @@
           </div>
         </div>
       </div>
-      {{taskData.title}}
+      <h5 @click="commentsClicked = !commentsClicked">{{taskData.title}}</h5>
       <i class="fa fa-trash-o text-danger" @click="deleteTask"></i>
     </div>
     <div v-if="commentsClicked">
@@ -56,7 +53,7 @@
         <form @submit="createComment">
           <input
             type="text"
-            class="form-control"
+            class="form-control text-capitalize"
             placeholder="Enter New Comment ..."
             v-model="newCommentObject.comment"
           />

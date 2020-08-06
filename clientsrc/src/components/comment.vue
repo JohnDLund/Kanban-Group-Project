@@ -4,7 +4,7 @@
       class="card border border-secondary rounded shadow m-1"
       style="overflow:auto display:block; border-bottom:solid 1px black"
     >
-      <div class="card-body bg-secondary text-wrap">
+      <div class="card-body bg-secondary text-wrap text-capitalize">
         {{commentData.user}}: {{commentData.comment}}
         <i
           class="fa fa-trash-o text-danger"

@@ -7,7 +7,7 @@
       <form class="form-inline" @submit="addNewList">
         <input
           type="text"
-          class="form-control mb-2"
+          class="form-control mb-2 text-capitalize"
           placeholder="Create New List ..."
           v-model="newListObject.title"
         />
@@ -61,6 +61,7 @@ export default {
         boardId: this.board.id,
         creatorEmail: this.user.email,
       });
+      this.newListObject.title = "";
     },
   },
   components: {
