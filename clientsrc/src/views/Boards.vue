@@ -21,13 +21,7 @@
     </div>
 
     <div class="row">
-      <div
-        class="col-12 col-md-4 pr-0"
-        v-for="board in boards"
-        :boardData="board"
-        :key="board.id"
-        style="backdrop-filter:blur(5px);"
-      >
+      <div class="col-12 col-md-4 pr-0" v-for="board in boards" :boardData="board" :key="board.id">
         <div class="bg-transparent text-dark p-2 rounded border d-flex justify-content-between">
           <i
             class="fa fa-2x fa-pencil text-warning"
