@@ -58,7 +58,7 @@
                 </button>
               </div>
               <div class="modal-body">
-                <form class="form" @submit="editBoard(board.id)">
+                <form class="form" @submit.prevent="editBoard(board.id)">
                   <input
                     type="text"
                     class="form-control mb-2 text-capitalize"
