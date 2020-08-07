@@ -6,7 +6,7 @@ class TasksService {
     return await dbContext.Task.findByIdAndUpdate(id, body, { new: true })
   }
   async deleteTask(id) {
-    return await dbContext.Task.findByIdAndDelete(id)
+    return await dbContext.Task.findOneAndRemove({ _id: id })
   }
   async create(body) {
     return await dbContext.Task.create(body)
