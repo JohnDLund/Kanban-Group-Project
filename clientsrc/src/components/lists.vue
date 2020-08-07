@@ -40,7 +40,7 @@
 
       <i class="fa fa-trash-o text-danger" @click="removeList"></i>
     </div>
-    <h4 class="lists p-2 text-capitalize shadow-lg">
+    <h4 class="lists p-2 text-capitalize">
       <u>{{listData.title}}</u>
     </h4>
     <tasks

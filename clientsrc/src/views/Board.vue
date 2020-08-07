@@ -15,7 +15,8 @@
     </div>
     <div class="listScroll">
       <lists
-        class="col-12 col-md-3 listWrapper bg-transparent text-dark p-2 m-2 rounded shadow-lg border border-white"
+        class="col-12 col-md-3 listWrapper bg-transparent text-dark p-2 m-2 rounded border"
+        style="backdrop-filter:blur(5px);"
         v-for="list in lists"
         :listData="list"
         :key="list.id"

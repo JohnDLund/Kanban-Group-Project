@@ -21,20 +21,24 @@
     </div>
 
     <div class="row">
-      <div class="col-12 col-md-4" v-for="board in boards" :boardData="board" :key="board.id">
-        <div
-          class="bg-transparent shadow-lg text-dark p-2 m-2 rounded border border-white d-flex justify-content-between"
-        >
+      <div
+        class="col-12 col-md-4 pr-0"
+        v-for="board in boards"
+        :boardData="board"
+        :key="board.id"
+        style="backdrop-filter:blur(5px);"
+      >
+        <div class="bg-transparent text-dark p-2 rounded border d-flex justify-content-between">
           <i
             class="fa fa-2x fa-pencil text-warning"
             data-toggle="modal"
             :data-target="'#editBoardModal' + board.id"
           ></i>
           <router-link :to="{name: 'board', params: {boardId: board.id}}">
-            <h3 class="text-capitalize shadow-lg text-dark">
+            <h3 class="text-capitalize text-dark">
               <u>{{board.title}}</u>
             </h3>
-            <h3 class="text-capitalize shadow-lg text-dark">{{board.description}}</h3>
+            <h3 class="text-capitalize text-dark">{{board.description}}</h3>
           </router-link>
           <i class="fa fa-2x fa-trash-o text-danger" @click="removeBoard(board.id)"></i>
         </div>
