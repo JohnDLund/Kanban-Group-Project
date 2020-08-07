@@ -40,7 +40,7 @@
             <router-link
               v-for="board in boards"
               :key="board.id"
-              class="dropdown-item bg-secondary text-white"
+              class="dropdown-item bg-secondary text-white text-capitalize text-center"
               href="#"
               :to="{ name: 'board', params: { boardId: board.id } }"
             >{{board.title}}</router-link>

@@ -1,5 +1,5 @@
 <template>
-  <div class="boards">
+  <div class="boards bg-beach">
     <h2>WELCOME TO THE BOARDS!!!</h2>
     <div class="row justify-content-center">
       <form class @submit.prevent="addBoard">
@@ -23,7 +23,7 @@
     <div class="row">
       <div class="col-3" v-for="board in boards" :boardData="board" :key="board.id">
         <div
-          class="bg-dark text-primary p-2 m-2 rounded border border-white d-flex justify-content-between"
+          class="bg-transparent shadow-lg text-dark p-2 m-2 rounded border border-white d-flex justify-content-between"
         >
           <i
             class="fa fa-2x fa-pencil text-warning"
@@ -31,8 +31,10 @@
             :data-target="'#editBoardModal' + board.id"
           ></i>
           <router-link :to="{name: 'board', params: {boardId: board.id}}">
-            <h3 class="text-capitalize">{{board.title}}:</h3>
-            <h3 class="text-capitalize">{{board.description}}</h3>
+            <h3 class="text-capitalize shadow-lg text-dark">
+              <u>{{board.title}}</u>
+            </h3>
+            <h3 class="text-capitalize shadow-lg text-dark">{{board.description}}</h3>
           </router-link>
           <i class="fa fa-2x fa-trash-o text-danger" @click="removeBoard(board.id)"></i>
         </div>
@@ -116,3 +118,12 @@ export default {
   },
 };
 </script>
+<style scoped>
+.bg-beach {
+  background-image: url("~@/assets/beach.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 90vh;
+  background-position: center;
+}
+</style>

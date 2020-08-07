@@ -1,5 +1,5 @@
 <template>
-  <div class="board container-fluid bg-secondary">
+  <div class="board container-fluid bg-otter">
     <div class="row justify-content-center text-white">
       <h1 class="col-12 p-4">{{board.title}}</h1>
     </div>
@@ -11,12 +11,11 @@
           placeholder="Create New List ..."
           v-model="newListObject.title"
         />
-        <button type="submit" class="btn btn-primary mb-2">Submit</button>
       </form>
     </div>
     <div class="listScroll">
       <lists
-        class="col-12 col-md-3 listWrapper bg-dark text-white p-2 m-2 rounded border border-white"
+        class="col-12 col-md-3 listWrapper bg-transparent text-dark p-2 m-2 rounded shadow-lg border border-white"
         v-for="list in lists"
         :listData="list"
         :key="list.id"
@@ -69,3 +68,13 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.bg-otter {
+  background-image: url("~@/assets/r-otter.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  background-position: center;
+}
+</style>

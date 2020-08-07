@@ -40,9 +40,11 @@
 
       <i class="fa fa-trash-o text-danger" @click="removeList"></i>
     </div>
-    <h4 class="lists p-2 text-capitalize">{{listData.title}}</h4>
+    <h4 class="lists p-2 text-capitalize shadow-lg">
+      <u>{{listData.title}}</u>
+    </h4>
     <tasks
-      class="rounded border border-primary bg-primary m-2"
+      class="rounded border border-warning bg-secondary text-white m-2"
       v-for="task in tasks"
       :taskData="task"
       :listId="listData.id"
