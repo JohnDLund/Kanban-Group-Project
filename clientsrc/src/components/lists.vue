@@ -23,7 +23,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <form class="form" @submit="editList">
+              <form class="form" @submit.prevent="editList">
                 <input
                   type="text"
                   class="form-control mb-2"

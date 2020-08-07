@@ -4,7 +4,7 @@
       <h1 class="col-12 p-4 shadow-md">{{board.title}}</h1>
     </div>
     <div class="row justify-content-center">
-      <form class="form-inline" @submit="addNewList">
+      <form class="form-inline" @submit.prevent="addNewList">
         <input
           type="text"
           class="form-control mb-2 text-capitalize"

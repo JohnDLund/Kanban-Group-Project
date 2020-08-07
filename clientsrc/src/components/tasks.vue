@@ -23,7 +23,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <form class="form" @submit="editTask">
+              <form class="form" @submit.prevent="editTask">
                 <input
                   type="text"
                   class="form-control mb-2"
@@ -56,7 +56,7 @@
       ></comment>
       <div class="input-group my-4 d-flex justify-content-center">
         <div class="input-group-prepend"></div>
-        <form @submit="createComment">
+        <form @submit.prevent="createComment">
           <input
             type="text"
             class="form-control text-capitalize"
