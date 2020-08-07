@@ -1,7 +1,7 @@
 <template>
   <div class="board container-fluid bg-otter">
-    <div class="row justify-content-center text-white">
-      <h1 class="col-12 p-4">{{board.title}}</h1>
+    <div class="row justify-content-center text-warning">
+      <h1 class="col-12 p-4 shadow-md">{{board.title}}</h1>
     </div>
     <div class="row justify-content-center">
       <form class="form-inline" @submit="addNewList">

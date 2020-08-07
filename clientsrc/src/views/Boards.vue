@@ -21,7 +21,7 @@
     </div>
 
     <div class="row">
-      <div class="col-3" v-for="board in boards" :boardData="board" :key="board.id">
+      <div class="col-12 col-md-4" v-for="board in boards" :boardData="board" :key="board.id">
         <div
           class="bg-transparent shadow-lg text-dark p-2 m-2 rounded border border-white d-flex justify-content-between"
         >
