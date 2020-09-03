@@ -113,6 +113,7 @@ export default {
         creatorEmail: this.user.email,
       });
       $("#editListModal" + this.listData.id).modal("hide");
+      $(".modal-backdrop").remove();
     },
     createTask() {
       this.$store.dispatch("createTask", {

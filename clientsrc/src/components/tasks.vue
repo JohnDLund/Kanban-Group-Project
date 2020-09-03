@@ -132,6 +132,7 @@ export default {
         creatorEmail: this.user.email,
       });
       $("#editTaskModal" + this.taskData.id).modal("hide");
+      $(".modal-backdrop").remove();
     },
   },
   components: {

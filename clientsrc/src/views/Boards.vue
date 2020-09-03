@@ -112,6 +112,7 @@ export default {
       });
       this.title = "";
       $("#editBoardModal" + id).modal("hide");
+      $(".modal-backdrop").remove();
     },
   },
 };
