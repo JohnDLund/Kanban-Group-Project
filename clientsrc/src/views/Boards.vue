@@ -23,44 +23,31 @@
     <div class="row">
       <div class="col-12 col-md-4 pr-0" v-for="board in boards" :boardData="board" :key="board.id">
         <div class="bg-transparent text-dark p-2 rounded border d-flex justify-content-between">
-          <i
-            class="fa fa-2x fa-pencil text-warning"
-            data-toggle="modal"
-            :data-target="'#editBoardModal' + board.id"
-          ></i>
-          <router-link :to="{name: 'board', params: {boardId: board.id}}">
-            <h3 class="text-capitalize text-dark">
-              <u>{{board.title}}</u>
-            </h3>
-            <h3 class="text-capitalize text-dark">{{board.description}}</h3>
-          </router-link>
-          <i class="fa fa-2x fa-trash-o text-danger" @click="removeBoard(board.id)"></i>
-        </div>
-        <div
-          class="modal fade text-dark"
-          :id="'editBoardModal' + board.id"
-          tabindex="-1"
-          role="dialog"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title text-capitalize..">Edit "{{board.title}}"</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <form class="form" @submit.prevent="editBoard(board.id)">
-                  <input
-                    type="text"
-                    class="form-control mb-2 text-capitalize"
-                    placeholder="Edit list ..."
-                    v-model="editedBoardObject.title"
-                  />
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-primary">Save changes</button>
+          <i class="fa fa-2x fa-pencil text-warning" @click="editBoardClicked = !editBoardClicked"></i>
+      <router-link :to="{name: 'board', params: {boardId: boardData.id}}">
+        <h3 class="text-capitalize">{{boardData.title}}:</h3>
+        <h3 class="text-capitalize">{{boardData.description}}</h3>
+      </router-link>
+      <i class="fa fa-2x fa-trash-o text-danger" @click="removeBoard(boardData.id)"></i>
+    </div>
+    <form
+      v-if="editBoardClicked == true"
+      class="form mx-2 shadow-lg"
+      @submit="editBoard(boardData.id)"
+    >
+      <input
+        type="text"
+        class="form-control mb-1 text-capitalize"
+        placeholder="Edit list ..."
+        v-model="editedBoardObject.title"
+      />
+      <input
+        type="text"
+        class="form-control mb-1 text-capitalize"
+        placeholder="Edit description ..."
+        v-model="editedBoardObject.description"
+      />
+      <button type="submit" class="btn btn-block btn-success">Save Change</button>
                 </form>
               </div>
             </div>
@@ -85,6 +72,7 @@ export default {
         description: "",
       },
       editedBoardObject: {},
+      editedBoardClicked: false,
     };
   },
   computed: {
@@ -105,14 +93,22 @@ export default {
     },
 
     editBoard(id) {
+      let editedBoardTitle = this.editedBoardObject.title
+        ? this.editedBoardObject.title
+        : this.boardData.title;
+      let editedBoardDescription = this.editedBoardObject.description
+        ? this.editedBoardObject.description
+        : this.boardData.description;
       this.$store.dispatch("editBoard", {
         id: id,
         title: this.editedBoardObject.title,
+        description: editedBoardObject.description,
         creatorEmail: this.user.email,
       });
-      this.title = "";
-      $("#editBoardModal" + id).modal("hide");
-      $(".modal-backdrop").remove();
+
+      this.editBoardClicked = false;
+      this.editedBoardObject.title = "";
+      this.editedBoardObject.description = "";
     },
   },
 };
