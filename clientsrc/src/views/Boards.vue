@@ -24,35 +24,31 @@
       <div class="col-12 col-md-4 pr-0" v-for="board in boards" :boardData="board" :key="board.id">
         <div class="bg-transparent text-dark p-2 rounded border d-flex justify-content-between">
           <i class="fa fa-2x fa-pencil text-warning" @click="editBoardClicked = !editBoardClicked"></i>
-      <router-link :to="{name: 'board', params: {boardId: boardData.id}}">
-        <h3 class="text-capitalize">{{boardData.title}}:</h3>
-        <h3 class="text-capitalize">{{boardData.description}}</h3>
-      </router-link>
-      <i class="fa fa-2x fa-trash-o text-danger" @click="removeBoard(boardData.id)"></i>
-    </div>
-    <form
-      v-if="editBoardClicked == true"
-      class="form mx-2 shadow-lg"
-      @submit="editBoard(boardData.id)"
-    >
-      <input
-        type="text"
-        class="form-control mb-1 text-capitalize"
-        placeholder="Edit list ..."
-        v-model="editedBoardObject.title"
-      />
-      <input
-        type="text"
-        class="form-control mb-1 text-capitalize"
-        placeholder="Edit description ..."
-        v-model="editedBoardObject.description"
-      />
-      <button type="submit" class="btn btn-block btn-success">Save Change</button>
-                </form>
-              </div>
-            </div>
-          </div>
+          <router-link :to="{name: 'board', params: {boardId: board.id}}">
+            <h3 class="text-capitalize">{{board.title}}:</h3>
+            <h3 class="text-capitalize">{{board.description}}</h3>
+          </router-link>
+          <i class="fa fa-2x fa-trash-o text-danger" @click="removeBoard(board.id)"></i>
         </div>
+        <form
+          v-if="editBoardClicked == true"
+          class="form mx-2 shadow-lg"
+          @submit="editBoard(board.id)"
+        >
+          <input
+            type="text"
+            class="form-control mb-1 text-capitalize"
+            placeholder="Edit list ..."
+            v-model="editedBoardObject.title"
+          />
+          <input
+            type="text"
+            class="form-control mb-1 text-capitalize"
+            placeholder="Edit description ..."
+            v-model="editedBoardObject.description"
+          />
+          <button type="submit" class="btn btn-block btn-success">Save Change</button>
+        </form>
       </div>
     </div>
   </div>
@@ -72,7 +68,7 @@ export default {
         description: "",
       },
       editedBoardObject: {},
-      editedBoardClicked: false,
+      editBoardClicked: false,
     };
   },
   computed: {
@@ -102,7 +98,7 @@ export default {
       this.$store.dispatch("editBoard", {
         id: id,
         title: this.editedBoardObject.title,
-        description: editedBoardObject.description,
+        description: this.editedBoardObject.description,
         creatorEmail: this.user.email,
       });
 
